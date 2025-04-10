@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="../static/css/bootstrap.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+
+    <title>Result</title>
+
+</head>
+
+<body>
+    <div class="d-flex flex-column min-vh-100">
+
+        <nav class="navbar navbar-expand-lg bg-success border-success border-bottom">
+            <div class="container-fluid mx-5">
+                <a class="navbar-brand text-light fw-bold fs-5 text-uppercase d-flex align-content-center gap-2"
+                    href="#">
+                    <i class="fa-solid fa-earth-asia"></i>
+                    FLOOD ASSESSMENT
+                </a>
+                <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa-solid fa-bars text-light"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-light fw-bold" aria-current="page" href="mainpage">Upload</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light fw-bold" href="forecast">Forecast</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link text-light fw-bold " href="predict">Predict</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light fw-bold" href="login">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container my-4">
+
+            <div class="d-flex mt-5 mb-4">
+                <h3 class="text-success-emphasis link-offset-1 text-decoration-underline flex-grow-1 flex-md-grow-0">
+                    Result
+                </h3>
+            </div>
+
+
+            <div class="row justify-content-center mb-3 mt-2 gx-5 gy-3">
+
+
+
+                {% if result %}
+
+                <div class="col-md-12">
+
+                    <div class="h4 text-success-emphasis fw-bold">
+                        {% if result %}
+
+                        {% if result == 'Low' %}
+
+                        <div class="h4 result">Normal</div>
+                        <div class="h4 result">No Suggestions Required</div>
+
+                        {% elif result == 'Moderate' %}
+
+                        <div class="h4 result">Moderate
+                        </div>
+
+                        <ul>
+                            <li>
+                                Use recycling components in your day to day life.
+                            </li>
+                            <li>
+                                Do not over use electricity. Turn off when it is not needed.
+                            </li>
+                            <li>
+                                Avoid motor vehicles or try utilizing pooling vehicles or public transportation
+                            </li>
+                            <li>
+                                Avoid Burning fossil fuels that emots carbon.
+                            </li>
+                        </ul>
+                        {% elif result == 'High' %}
+                        <div class="h4 result mb-4">High </div>
+                        <ul>
+                            <li>Handling waste can be a carbon-intensive process. Recycling reduces the waste going to
+                                landfills and gives plastics made from fossil fuels a second life. While recycling
+                                programs vary by location, you can recycle common items and help reduce your carbon
+                                footprint. </li>
+                            <li>A carbon offset is a certificate you can trade to fund ways for reducing carbon
+                                emissions that you cannot do yourself. You are offsetting your use of energy with
+                                energy-saving spending. Many power companies offer renewable energy certificates that
+                                make the purchase easy.</li>
+                            <li>
+                                Traveling by air spews more greenhouse gas than traveling by car. Avoid motor vehicles
+                                or try utilizing pooling vehicles or public transportation by citizens
+                                Consume Solar energy more.
+                            </li>
+                        </ul>
+
+                        {% endif %}
+                        {% endif %}
+                    </div>
+
+                </div>
+
+                <div class="col-md-12 mt-5">
+                    <h4 class="mb-5 text-decoration-underline link-offset-3">Point Rating For Your Carbon Footprint</h4>
+                    <div id="chart"></div>
+                </div>
+
+                {% endif %}
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+    <script src="../static/js/jquery.js"></script>
+    <script src="../static/js/bootstrap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    
+    <script>
+        var data = {{ data | tojson }};
+        var labels = {{ labels | tojson }};
+        
+        var options = {
+            chart: {
+                type: 'bar'
+            },
+            series: [{
+                name: "Result: {{ result }}",
+                data: data
+            }],
+            xaxis: {
+                categories: labels
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    </script>
+
+    <script>
+        $(function () {
+
+
+            $("#reset").on("click", function () {
+                $("input,textarea,select").removeClass("is-invalid")
+            })
+
+            $("input,textarea,select").on("keydown change", function () {
+                $(this).removeClass("is-invalid")
+            })
+        })
+    </script>
+
+</body>
+
+</html>

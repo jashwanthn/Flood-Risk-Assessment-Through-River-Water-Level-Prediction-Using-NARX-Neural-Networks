@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="../static/css/bootstrap.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+
+    <title>Form</title>
+
+    <style>
+        .image-upload>input {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="d-flex flex-column min-vh-100">
+
+        <nav class="navbar navbar-expand-lg bg-success border-success border-bottom">
+            <div class="container-fluid mx-5">
+                <a class="navbar-brand text-light fw-bold fs-5"
+                    href="#">
+                    <i class="fa-solid fa-earth-asia"></i>
+                    FLOOD ASSESSMENT
+                </a>
+                <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa-solid fa-bars text-light"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-decoration-underline link-offset-2 active text-light fw-bold"
+                                aria-current="page" href="mainpage">Upload</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light fw-bold" href="forecast">Forecast</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link text-light fw-bold" href="predict">Predict</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light fw-bold" href="login">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        
+        <div class="position-fixed top-0 toastae start-50 translate-middle-x p-3" style="z-index: 11">
+            <div id="liveToast1" class="toast upload bg-success bg-opacity-75 hide" role="alert" aria-live="assertive"
+                aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body ms-auto text-white">
+                        Upload Success !
+                    </div>
+                    <button type="button" class="btn-close shadow-none btn-close-white me-2 m-auto"
+                        data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="position-fixed top-0 toastae start-50 translate-middle-x p-3" style="z-index: 11">
+            <div id="liveToast1" class="toast dataset bg-success bg-opacity-75 hide" role="alert" aria-live="assertive"
+                aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body ms-auto text-white">
+                        Dataset Cleared Successfully !
+                    </div>
+                    <button type="button" class="btn-close shadow-none btn-close-white me-2 m-auto"
+                        data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container my-4">
+
+            <div class="d-flex mt-5 mb-5">
+                <h3 class="text-success-emphasis link-offset-1 text-decoration-underline flex-grow-1 flex-md-grow-0">
+                    Upload
+                </h3>
+            </div>
+
+
+            <form id="upload-file" method="post" enctype="multipart/form-data" class="">
+
+                <div class="row justify-content-center mb-3 mt-4">
+                    <div class="col-md-12">
+
+                        <div class="row justify-content-start gy-2">
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-success d-block">
+                                    Upload File :</label>  
+                                <input type="file" class="form-control shadow-none border-success" id="first_image" name="first_image" accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
+                            </div> 
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold text-success d-block">
+                                     &nbsp;
+                                </label>  
+                                <input type="button" id="clearbut" class="btn btn-danger shadow-none w-100" value="Clear Dataset" {% if rows == 0 %} disabled {% endif %} onclick="cleardata();" />
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold text-success d-block">
+                                     &nbsp;
+                                </label>  
+                                <input type="button" class="btn btn-success shadow-none w-100" value="Upload CSV" onclick="uploadimg();" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script src="../static/js/jquery.js"></script>
+    <script src="../static/js/bootstrap.js"></script>
+    <script>
+
+
+        function uploadimg() {
+            debugger;
+            var form_data = new FormData($('#upload-file')[0]);
+            $.ajax({
+                type: 'POST',
+                url: '/uploadajax',
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (data) { 
+                    debugger
+                  $('.toast').not(".dataset").toast('show');
+                },
+            });
+        }
+
+        function cleardata() {
+            debugger; 
+            $.ajax({
+                type: 'POST',
+                url: '/mainpage', 
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (data) { 
+                    debugger
+                    $('.toast').not(".upload").toast('show');
+                    $("#clearbut").attr("disabled",true)
+                },
+            });
+        }
+
+
+    </script>
+</body>
+
+</html>

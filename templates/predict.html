@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="../static/css/bootstrap.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+
+    <title>Form</title>
+
+    <style>
+        .image-upload>input {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="d-flex flex-column min-vh-100">
+
+        <nav class="navbar navbar-expand-lg bg-success border-success border-bottom">
+            <div class="container-fluid mx-5">
+                <a class="navbar-brand text-light fw-bold fs-5"
+                    href="#">
+                    <i class="fa-solid fa-earth-asia"></i>
+                    FLOOD ASSESSMENT
+                </a>
+                <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa-solid fa-bars text-light"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-light fw-bold"
+                                aria-current="page" href="mainpage">Upload</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light fw-bold" href="forecast">Forecast</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link text-light fw-bold text-decoration-underline link-offset-2 active " href="predict">Predict</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light fw-bold" href="login">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container my-4">
+
+            <div class=" row justify-content-between mt-5 mb-5">
+                <div class="col-md-4">
+                    <h3 class="text-success-emphasis link-offset-1 text-decoration-underline flex-grow-1 flex-md-grow-0">
+                        Predict
+                    </h3>
+                </div>
+                
+
+                <form id="predictform" method="post" enctype="multipart/form-data" class="">
+
+                    <div class="row justify-content-center mb-3 mt-4 gx-5 gy-3">
+    
+    
+                        <div class="col-md-6 position-relative">
+                            <label for="vehicle" class="form-label">Has there been heavy rainfall (more than 20 mm) in the last 24 hours?:</label>
+                            <select name="heavy_rainfall" id="vehicle" class="form-select shadow-none border-success ">
+                                <option value="">Select</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                            <div class="invalid-tooltip rounded-3">
+                                * Select value
+                            </div>
+                        </div>
+    
+                        <div class="col-md-6 position-relative">
+                            <label for="fossilfuel" class="form-label d-block mb-3">Has the rainfall continued for more than 3 consecutive hours?:</label>
+                            <select name="rainfall_duration" id="vehicle1" class="form-select shadow-none border-success ">
+                                <option value="">Select</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                            <div class="invalid-tooltip rounded-3">
+                                * Select value
+                            </div>
+                        </div>
+    
+    
+                        <div class="col-md-6 position-relative">
+                            <label for="commute" class="form-label">Are local drainage systems overflowing or blocked?:</label>
+                            <select name="drainage_issue" id="commute4" class="form-select shadow-none border-success ">
+                                <option value="">Select</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                            <div class="invalid-tooltip rounded-3">
+                                * Select value
+                            </div>
+                        </div>
+                        
+    
+                        <div class="col-md-6 position-relative">
+                            <label for="commute" class="form-label">Have weather services issued any flood warnings or alerts for your area?:</label>
+                            <select name="flood_warning" id="commute3" class="form-select shadow-none border-success ">
+                                <option value="">Select</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                            <div class="invalid-tooltip rounded-3">
+                                * Select value
+                            </div>
+                        </div>
+     
+     
+                        <div class="col-md-6 position-relative">
+                            <label for="commute" class="form-label">Have any months (e.g., June, July, August) recorded rainfall levels significantly above historical averages?:</label>
+                            <select name="above_avg_rainfall_season" id="commute2" class="form-select shadow-none border-success ">
+                                <option value="">Select</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                            <div class="invalid-tooltip rounded-3">
+                                * Select value
+                            </div>
+                        </div>
+    
+    
+                        <div class="col-md-6 position-relative">
+                            <label for="commute" class="form-label">Is it been raining continuously for more than 15 days?:</label>
+                            <select name="highest_rainfall_month_extreme" id="commute1" class="form-select shadow-none border-success ">
+                                <option value="">Select</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                            <div class="invalid-tooltip rounded-3">
+                                * Select value
+                            </div>
+                        </div>
+    
+                        <div class="w-100 mt-4"></div>
+    
+                        <div class="col-md-6">
+                            <button type="reset" id="reset" class="btn btn-danger shadow-none w-100">Reset</button>
+                        </div>
+    
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-success shadow-none w-100">Submit</button>
+                        </div>
+    
+                    </div>
+                {% if prediction is not none %}
+                <p><strong>Flood:</strong> {{ prediction }}</p>
+                <p><strong>Probability:</strong> {{ probability }}</p>
+                <p><strong>Flood Type:</strong> {{ flood_type }}</p>
+                <p><strong>Accuracy:</strong> {{ accuracy }}%</p>
+            {% elif error %}
+                <p style="color: red;">{{ error }}</p>
+            {% else %}
+                <p style="color: gray;">Submit the form to get a prediction.</p>
+            {% endif %}
+            <audio id="buzzer" src="/static/audio/siren.mp3" preload="auto"></audio>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="../static/js/jquery.js"></script>
+    <script src="../static/js/bootstrap.js"></script>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      var prediction = "{{ prediction }}".trim();
+      if (prediction === "Yes") {
+        var audioElement = document.getElementById("buzzer");
+        if (audioElement) {
+          audioElement.play().catch(function(error) {
+            console.error("Audio playback failed:", error);
+          });
+        }
+      }
+    });
+  </script>
+    
+
+</body>
+
+</html>
